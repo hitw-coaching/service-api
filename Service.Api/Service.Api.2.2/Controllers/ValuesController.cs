@@ -51,27 +51,30 @@ namespace Service.Api._2._2.Controllers
             if (_dynamicPoints == null)
                 _dynamicPoints = (from line in System.IO.File.ReadAllLines($"./Datas/{FileNameDynamic}")
                                 .Skip(1)
-                                 let columns = line.Split(';')
-                                 where DateTime.ParseExact(columns[1], "dd/MM/yyyy", null) > DateTime.UtcNow.AddYears(-1)
-                                 select new PointDto
-                                 {
-                                     Site = columns[0],
-                                     NightDate = DateTime.ParseExact(columns[1], "dd/MM/yyyy", null),
-                                     Id = columns[2],
-                                     Positive = columns[3],
-                                     Validation = columns[4],
-                                     Contacts = columns[5],
-                                     X = columns[6],
-                                     Y = columns[7],
-                                     Habitat1 = columns[8],
-                                     Habitat2 = columns[9],
-                                     Machine = columns[10],
-                                     Operator = columns[11],
-                                     Project = columns[12],
-                                     Start = columns[13],
-                                     End = columns[14],
-                                     Diff = columns[15],
-                                 }).ToList();
+                                  let columns = line.Split(';')
+                                  where columns[6] != null && columns[7] != null
+                                  && columns[6] != "" && columns[7] != ""
+                                  && !columns[6].Contains(",") && !columns[7].Contains(",")
+                                  //where DateTime.ParseExact(columns[1], "dd/MM/yyyy", null) > DateTime.UtcNow.AddYears(-1)
+                                  select new PointDto
+                                  {
+                                      Site = columns[0],
+                                      NightDate = DateTime.ParseExact(columns[1], "dd/MM/yyyy", null),
+                                      Id = columns[2],
+                                      Positive = columns[3],
+                                      Validation = columns[4],
+                                      Contacts = columns[5],
+                                      X = columns[6],
+                                      Y = columns[7],
+                                      Habitat1 = columns[8],
+                                      Habitat2 = columns[9],
+                                      Machine = columns[10],
+                                      Operator = columns[11],
+                                      Project = columns[12],
+                                      Start = columns[13],
+                                      End = columns[14],
+                                      Diff = columns[15],
+                                  }).ToList();
 
             return Ok(JsonConvert.SerializeObject(_dynamicPoints));
         }
@@ -83,7 +86,8 @@ namespace Service.Api._2._2.Controllers
                 _dynamicPoints = (from line in System.IO.File.ReadAllLines($"./Datas/{FileNameDynamic}")
                                 .Skip(1)
                                   let columns = line.Split(';')
-                                  where DateTime.ParseExact(columns[1], "dd/MM/yyyy", null) > DateTime.UtcNow.AddYears(-1)
+                                  where columns[6] != null && columns[7] != null
+                                  //where DateTime.ParseExact(columns[1], "dd/MM/yyyy", null) > DateTime.UtcNow.AddYears(-1)
                                   select new PointDto
                                   {
                                       Site = columns[0],
