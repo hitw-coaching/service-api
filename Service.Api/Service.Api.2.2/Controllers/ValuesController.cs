@@ -13,8 +13,8 @@ namespace Service.Api._2._2.Controllers
         private const string FileName = "Grille_protocole_points_fixes.csv";
         private const string FileNameDynamic = "Donnees_acoustiques_18102018.csv";
 
-        private static dynamic _fixPoints;
-        private static List<PointDto> _dynamicPoints;
+        public static dynamic _fixPoints;
+        public static List<PointDto> _dynamicPoints;
 
 
         public ValuesController()

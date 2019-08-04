@@ -25,6 +25,19 @@ namespace Service.Api._2._2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Default",
+                builder =>
+                {
+
+                    builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -41,6 +54,7 @@ namespace Service.Api._2._2
                 app.UseHsts();
             }
 
+            app.UseCors("Default");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
